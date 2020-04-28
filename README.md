@@ -9,7 +9,7 @@ You must change the path of cub3d in the .sh and the Makefile.
 
 Then you can excute the tester with `sh testcub3D.sh` !
 
-Make sure you quit correctly with `ESC` or the red cross when the window opens, otherwise you'll `KO` anyway.
+Make sure you quit correctly with `ESC` or the red cross when the window opens, otherwise in any case you'll `KO`.
 
 ## SCREENSHOT
 
