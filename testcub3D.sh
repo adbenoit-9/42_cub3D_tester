@@ -7,7 +7,7 @@ echo "Error" > correct.txt
 #OK message
 echo "destroy window done." > correct2.txt
 
-nb_test=25
+nb_test=32
 count=0
 ok=1
 make
@@ -137,7 +137,47 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test17"
-fi 
+fi
+
+$pwd_cub3d/cub3d tests/test20.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test20"
+fi
+
+$pwd_cub3d/cub3d tests/test21.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test21"
+fi
+
+$pwd_cub3d/cub3d tests/test24.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test24"
+fi
+
+$pwd_cub3d/cub3d tests/test25.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test25"
+fi
 
 if [ $KO != 0 ]
     then
@@ -179,6 +219,17 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test14"
+        echo "[\033[1;31mKO\033[0;1m]"
+fi
+
+$pwd_cub3d/cub3d tests/test26.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test26"
         echo "[\033[1;31mKO\033[0;1m]"
 fi
 
@@ -252,6 +303,26 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test18"
+fi
+
+$pwd_cub3d/cub3d tests/test22.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test22"
+fi
+
+$pwd_cub3d/cub3d tests/test23.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test23"
 fi
 
 if [ $KO != 0 ]
@@ -362,7 +433,7 @@ if [ $count -eq $nb_test ]
     then
     {
         echo "[ \033[1;32m$count / $nb_test\033[0;1m ]"
-        echo "\033[1;32mGood job but I'm may forgot some errors so don't be too much proud !\033[0;1m\n"
+        echo "\033[1;32mGreat !\033[0;1m\n"
     }
     else
         {
