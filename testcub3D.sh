@@ -11,6 +11,13 @@ nb_test=25
 count=0
 ok=1
 make
+if [ -f $pwd_cub3d/cub3d ]
+    then
+        continue
+    else
+        echo "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
+        exit
+fi
 printf "\n\n"
 echo "\033[4;34;1mTESTER CUB3D\033[0;1m"
 printf "\n"
@@ -54,7 +61,7 @@ if [ $var = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test19.cub > output.txt
-var$(srcs/comp output.txt correct2.txt)
+var=$(srcs/comp output.txt correct2.txt)
 ok=1
 if [ $var = $ok ]
     then
@@ -76,7 +83,7 @@ if [ $KO != 0 ]
         echo "\033[7mFailed :$str\033[0m"
     else
         echo "[\033[1;32mOK\033[0;1m]"
-        echo "simple \033[1;32m$check\033[0;1m"
+        echo "basic \033[1;32m$check\033[0;1m"
 fi
 ###########################
 KO=0
@@ -280,7 +287,7 @@ if [ $var = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test13.cubi > output.txt
-var=$(srcs/comp output.txt corrects.txt)
+var=$(srcs/comp output.txt correct.txt)
 if [ $var = $ok ]
     then
         count=$(($count+1))
