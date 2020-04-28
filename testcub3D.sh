@@ -21,8 +21,8 @@ col=32
 echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m$check\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
 printf "Good map     : "
 $pwd_cub3d/cub3d tests/basic.cub > output.txt
-va=$(srcs/comp output.txt correct2.txt)
-if [ $va = $ok ]
+var=$(srcs/comp output.txt correct2.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -43,25 +43,25 @@ if [ $var = $ok ]
         str+=" test"
 fi
 
-$pwd_cub3d/cub3d tests/test19.cub > output.txt
+$pwd_cub3d/cub3d tests/test11..cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
-ok=1
 if [ $var = $ok ]
     then
         count=$(($count+1))
     else
         KO=$(($KO+1))
-        str+=" test19"
+        str+=" test11"
 fi
 
-$pwd_cub3d/cub3d tests/test11..cub > output.txt
-var11=$(srcs/comp output.txt correct2.txt)
-if [ $var11 = $ok ]
+$pwd_cub3d/cub3d tests/test19.cub > output.txt
+var$(srcs/comp output.txt correct2.txt)
+ok=1
+if [ $var= $ok ]
     then
         count=$(($count+1))
     else
         KO=$(($KO+1))
-        str+=" test11"
+        str+=" test19"
 fi
 
 if [ $KO != 0 ]
@@ -83,8 +83,8 @@ KO=0
 str=""
 printf "Info error   : "
 $pwd_cub3d/cub3d tests/test0.cub > output.txt
-var0=$(srcs/comp output.txt correct.txt)
-if [ $var0 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -93,8 +93,8 @@ if [ $var0 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test1.cub > output.txt
-var1=$(srcs/comp output.txt correct.txt)
-if [ $var1 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -103,8 +103,8 @@ if [ $var1 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test15.cub > output.txt
-var15=$(srcs/comp output.txt correct.txt)
-if [ $var15 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -113,8 +113,8 @@ if [ $var15 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test16.cub > output.txt
-var16=$(srcs/comp output.txt correct.txt)
-if [ $var16 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -123,8 +123,8 @@ if [ $var16 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test17.cub > output.txt
-var17=$(srcs/comp output.txt correct.txt)
-if [ $var17 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -145,8 +145,8 @@ KO=0
 str=""
 printf "Color error  : "
 $pwd_cub3d/cub3d tests/test3.cub > output.txt
-var3=$(srcs/comp output.txt correct.txt)
-if [ $var3 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -155,8 +155,8 @@ if [ $var3 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test8.cub > output.txt
-var8=$(srcs/comp output.txt correct.txt)
-if [ $var8 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -165,8 +165,8 @@ if [ $var8 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test14.cub > output.txt
-var14=$(srcs/comp output.txt correct.txt)
-if [ $var14 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -188,8 +188,8 @@ KO=0
 str=""
 printf "Map error    : "
 $pwd_cub3d/cub3d tests/test4.cub > output.txt
-var4=$(srcs/comp output.txt correct.txt)
-if [ $var4 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -198,8 +198,8 @@ if [ $var4 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test5.cub > output.txt
-var5=$(srcs/comp output.txt correct.txt)
-if [ $var5 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -208,8 +208,8 @@ if [ $var5 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test6.cub > output.txt
-var6=$(srcs/comp output.txt correct.txt)
-if [ $var6 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -218,8 +218,8 @@ if [ $var6 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test7.cub > output.txt
-var7=$(srcs/comp output.txt correct.txt)
-if [ $var7 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -228,8 +228,8 @@ if [ $var7 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test9.cub > output.txt
-var9=$(srcs/comp output.txt correct.txt)
-if [ $var9 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -238,8 +238,8 @@ if [ $var9 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test18.cub > output.txt
-var18=$(srcs/comp output.txt correct.txt)
-if [ $var18 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -260,8 +260,8 @@ KO=0
 str=""
 printf "File error   : "
 $pwd_cub3d/cub3d tests/test10.cu > output.txt
-var10=$(srcs/comp output.txt correct.txt)
-if [ $var10 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -270,8 +270,8 @@ if [ $var10 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test12.Cub > output.txt
-var12=$(srcs/comp output.txt correct.txt)
-if [ $var12 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -280,8 +280,8 @@ if [ $var12 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test13.cubi > output.txt
-var13=$(srcs/comp output.txt corrects.txt)
-if [ $var13 = $ok ]
+var=$(srcs/comp output.txt corrects.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -290,8 +290,8 @@ if [ $var13 = $ok ]
 fi
 
 $pwd_cub3d/cub3d srcs/absent.cub > output.txt
-var19=$(srcs/comp output.txt correct.txt)
-if [ $var19 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -312,8 +312,8 @@ KO=0
 str=""
 printf "Save error   : "
 $pwd_cub3d/cub3d tests/test.cub --sav > output.txt
-var20=$(srcs/comp output.txt correct.txt)
-if [ $var20 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -322,8 +322,8 @@ if [ $var20 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test.cub -save > output.txt
-var21=$(srcs/comp output.txt correct.txt)
-if [ $var21 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
@@ -332,8 +332,8 @@ if [ $var21 = $ok ]
 fi
 
 $pwd_cub3d/cub3d tests/test.cub --saves > output.txt
-var22=$(srcs/comp output.txt correct.txt)
-if [ $var22 = $ok ]
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
