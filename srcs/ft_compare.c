@@ -30,9 +30,16 @@ static char *gnl_str(char *file)
 {
     int     fd;
     char    *str;
+    char    *tmp;
+    int     ret;
 
     fd = open(file, O_RDONLY);
-    get_next_line(fd, &str);
+    ret = get_next_line(fd, &str);
+    while (ret == 1)
+    {
+        ret = get_next_line(fd, &tmp);
+        free(tmp);
+    }
     close(fd);
     return (str);
 }
@@ -42,14 +49,16 @@ static int test(char *out, char *corr)
     char    *s1;
     char    *s2;
 
-    s2 = gnl_str(corr);
     s1 = gnl_str(out);
+    s2 = gnl_str(corr);
     if (ft_compare(s1, s2) == 1)
     {
         printf("1");
         return (1);
     }
     printf("0");
+    free(s1);
+    free(s2);
     return (0);
 }
 

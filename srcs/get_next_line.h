@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 4096
 
 typedef struct	s_list
 {

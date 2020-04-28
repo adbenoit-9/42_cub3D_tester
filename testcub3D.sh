@@ -7,7 +7,7 @@ echo "Error" > correct.txt
 #OK message
 echo "destroy window done." > correct2.txt
 
-nb_test=32
+nb_test=40
 count=0
 ok=1
 make
@@ -62,13 +62,33 @@ fi
 
 $pwd_cub3d/cub3d tests/test19.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
-ok=1
 if [ $var = $ok ]
     then
         count=$(($count+1))
     else
         KO=$(($KO+1))
         str+=" test19"
+fi
+
+$pwd_cub3d/cub3d tests/test32.cub > output.txt
+var=$(srcs/comp output.txt correct2.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test32"
+fi
+
+$pwd_cub3d/cub3d tests/test33.cub > output.txt
+var=$(srcs/comp output.txt correct2.txt)
+ok=1
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test33"
 fi
 
 if [ $KO != 0 ]
@@ -177,6 +197,46 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test25"
+fi
+
+$pwd_cub3d/cub3d tests/test27.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test27"
+fi
+
+$pwd_cub3d/cub3d tests/test28.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test28"
+fi
+
+$pwd_cub3d/cub3d tests/test29.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test29"
+fi
+
+$pwd_cub3d/cub3d tests/test34.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test34"
 fi
 
 if [ $KO != 0 ]
@@ -323,6 +383,26 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test23"
+fi
+
+$pwd_cub3d/cub3d tests/test30.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test30"
+fi
+
+$pwd_cub3d/cub3d tests/test31.cub > output.txt
+var=$(srcs/comp output.txt correct.txt)
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test31"
 fi
 
 if [ $KO != 0 ]
