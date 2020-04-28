@@ -136,7 +136,7 @@ if [ $var = $ok ]
         count=$(($count+1))
     else
         KO=$(($KO+1))
-        str+=" test15"
+        str+=" test17"
 fi 
 
 if [ $KO != 0 ]
