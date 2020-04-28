@@ -7,16 +7,31 @@ echo "Error" > correct.txt
 #OK message
 echo "destroy window done." > correct2.txt
 
-nb_test=23
+nb_test=24
 count=0
+ok=1
 make
 printf "\n\n"
 echo "\033[4;34;1mTESTER CUB3D\033[0;1m"
 printf "\n"
 KO=0
 str=""
-echo "\033[1;36myou need to get the good map\033[0m [\033[1;32mOK\033[0;1m] \033[1;36mfor the rest of the tester !\033[0m"
+check=✔
+col=32
+echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m$check\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
 printf "Good map     : "
+$pwd_cub3d/cub3d tests/basic.cub > output.txt
+va=$(srcs/comp output.txt correct2.txt)
+if [ $va = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" basic"
+        check=𐄂
+        col=31
+fi
+
 $pwd_cub3d/cub3d tests/test.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
 ok=1
@@ -41,9 +56,16 @@ fi
 if [ $KO != 0 ]
     then
         echo "[\033[1;31mKO\033[0;1m]"
+        if [ $check = ✔ ]
+            then
+                echo "basic \033[1;32m$check\033[0;1m"
+            else
+                echo "basic \033[1;31m$check\033[0;1m"
+        fi
         echo "\033[7mFailed :$str\033[0m"
     else
         echo "[\033[1;32mOK\033[0;1m]"
+        echo "simple \033[1;32m$check\033[0;1m"
 fi
 ###########################
 KO=0
