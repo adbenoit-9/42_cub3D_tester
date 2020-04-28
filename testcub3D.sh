@@ -7,7 +7,7 @@ echo "Error" > correct.txt
 #OK message
 echo "destroy window done." > correct2.txt
 
-nb_test=24
+nb_test=25
 count=0
 ok=1
 make
@@ -41,6 +41,17 @@ if [ $var = $ok ]
     else
         KO=$(($KO+1))
         str+=" test"
+fi
+
+$pwd_cub3d/cub3d tests/test19.cub > output.txt
+var=$(srcs/comp output.txt correct2.txt)
+ok=1
+if [ $var = $ok ]
+    then
+        count=$(($count+1))
+    else
+        KO=$(($KO+1))
+        str+=" test19"
 fi
 
 $pwd_cub3d/cub3d tests/test11..cub > output.txt
