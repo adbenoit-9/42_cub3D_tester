@@ -362,7 +362,7 @@ if [ $count -eq $nb_test ]
     then
     {
         echo "[ \033[1;32m$count / $nb_test\033[0;1m ]"
-        echo "\033[1;32mGood job my love !\033[0;1m\n"
+        echo "\033[1;32mGood job but I'm may forgot some errors so don't be too much proud !\033[0;1m\n"
     }
     else
         {
