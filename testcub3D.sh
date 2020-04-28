@@ -6,6 +6,7 @@ pwd_cub3d=..
 echo "Error" > correct.txt
 #OK message
 echo "destroy window done." > correct2.txt
+echo "" > empty.txt
 
 nb_test=40
 count=0
@@ -28,7 +29,11 @@ col=32
 echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m$check\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
 printf "Good map     : "
 $pwd_cub3d/cub3d tests/basic.cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
+var=$(srcs/comp output correct2.txt)
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
@@ -41,7 +46,10 @@ fi
 
 $pwd_cub3d/cub3d tests/test.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
-ok=1
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
@@ -52,6 +60,10 @@ fi
 
 $pwd_cub3d/cub3d tests/test11..cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
@@ -62,6 +74,10 @@ fi
 
 $pwd_cub3d/cub3d tests/test19.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
@@ -72,6 +88,10 @@ fi
 
 $pwd_cub3d/cub3d tests/test32.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
@@ -82,7 +102,10 @@ fi
 
 $pwd_cub3d/cub3d tests/test33.cub > output.txt
 var=$(srcs/comp output.txt correct2.txt)
-ok=1
+if [ var = 0 ]
+    then
+        var=$(srcs/comp output.txt empty.txt)
+fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
