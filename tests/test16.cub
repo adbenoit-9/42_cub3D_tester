@@ -1,9 +1,9 @@
 R 1920 1080
 NO ./textures/the_north_texture.xpm
-SO ./textures/the_south_texture.png
+SO ./textures/the_south_texture.xpm
 WE ./textures/the_west_texture.xpm
 EA ./textures/the_east_texture.xpm
-
+                              
 S ./textures/the_sprite_texture.xpm
 F 220,100,0
 C 225,30,0

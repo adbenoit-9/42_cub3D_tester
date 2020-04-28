@@ -56,7 +56,7 @@ fi
 $pwd_cub3d/cub3d tests/test19.cub > output.txt
 var$(srcs/comp output.txt correct2.txt)
 ok=1
-if [ $var= $ok ]
+if [ $var = $ok ]
     then
         count=$(($count+1))
     else
