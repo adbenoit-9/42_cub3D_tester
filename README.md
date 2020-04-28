@@ -1,6 +1,6 @@
 # tester_cub3d
 
-This tester only check the ouput of cub3d.\n
+This tester only check the ouput of cub3d.
 If the program close properly "destroy window done." and if in case of an error, return "Error\n".
 
 ## USAGE
