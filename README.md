@@ -1,4 +1,9 @@
 # tester_cub3d
 
-Il faut le cloner dans le dossier de cub3d ou changer le chemin de cub3d dans le .sh et le Makefile.
-Ensuite exécuter le .sh
+This tester only check the ouput of cub3d.
+If the program close properly "destroy window done." and if in case of an error, return "Error\n".
+
+## USAGE
+
+You must change the path of cub3d in the .sh and the Makefile. 
+Then you can excute the tester with the command : sh testcub3D.sh
