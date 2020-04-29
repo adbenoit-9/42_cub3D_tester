@@ -17,6 +17,9 @@
 # include <unistd.h>
 # include <stdio.h>
 
+
+# define BUFFER_SIZE 4096
+
 typedef struct	s_list
 {
 	char			c;
