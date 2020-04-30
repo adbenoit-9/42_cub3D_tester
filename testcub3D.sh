@@ -1,5 +1,9 @@
 #!/bin/bash
 
+##########################################################################################
+###################################### TESTER CUB3D ######################################
+##########################################################################################
+
 pwd_cub3d=..
 
 #first line massage in error case
@@ -8,9 +12,97 @@ echo "Error" > correct.txt
 echo "destroy window done." > correct2.txt
 echo "" > empty.txt
 
-nb_test=40
+nb_test=42
 count=0
 ok=1
+check=✔
+
+############################
+######## FUNCTIONS #########
+############################
+
+#For good map
+good_map(){
+    i=1
+    tot_test=$#
+    tot_test=$(($tot_test+1))
+    while [ $i -lt $tot_test ]
+        do
+            test=${!i}
+            $pwd_cub3d/cub3d tests/$test > output.txt
+            var=$(srcs/comp output.txt correct2.txt)
+            if [ var = 0 ]
+                then
+                    var=$(srcs/comp output.txt empty.txt)
+            fi
+            if [ $var = $ok ]
+                then
+                    count=$(($count+1))
+            else
+                     KO=$(($KO+1))
+                    str+=" $test"
+            fi
+            i=$((i+1))
+    done
+    return $KO
+}
+
+#For map/info error
+error_map(){
+    i=1
+    tot_test=$#
+    tot_test=$(($tot_test+1))
+    while [ $i -lt $tot_test ]
+        do
+            test=${!i}
+            $pwd_cub3d/cub3d tests/$test > output.txt
+            var=$(srcs/comp output.txt correct.txt)
+            if [ $var = $ok ]
+                then
+                    count=$(($count+1))
+            else
+                     KO=$(($KO+1))
+                    str+=" $test"
+            fi
+            i=$((i+1))
+    done
+}
+
+#For --save error
+save_error(){
+    i=1
+    tot_test=$#
+    tot_test=$(($tot_test+1))
+    while [ $i -lt $tot_test ]
+        do
+            save=${!i}
+            $pwd_cub3d/cub3d tests/basic.cub $save > output.txt
+            var=$(srcs/comp output.txt correct.txt)
+            if [ $var = $ok ]
+                then
+                    count=$(($count+1))
+            else
+                     KO=$(($KO+1))
+                    str+=" $save"
+            fi
+            i=$((i+1))
+    done
+}
+
+print_result(){
+    if [ $KO != 0 ]
+    then
+        echo "[\033[1;31mKO\033[0;1m]"
+        echo "\033[7mFailed :$str\033[0m"
+    else
+        echo "[\033[1;32mOK\033[0;1m]"
+fi
+}
+
+###########################
+######## EXCUTION #########
+###########################
+
 make
 if [ -f $pwd_cub3d/cub3d ]
     then
@@ -20,14 +112,14 @@ if [ -f $pwd_cub3d/cub3d ]
         exit
 fi
 printf "\n\n"
+
 echo "\033[4;34;1mTESTER CUB3D\033[0;1m"
 printf "\n"
-KO=0
-str=""
-check=✔
-col=32
 echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m$check\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
 printf "Good map     : "
+
+str=""
+KO=0
 $pwd_cub3d/cub3d tests/basic.cub > output.txt
 var=$(srcs/comp output correct2.txt)
 if [ var = 0 ]
@@ -39,80 +131,11 @@ if [ $var = $ok ]
         count=$(($count+1))
     else
         KO=$(($KO+1))
-        str+=" basic"
+        str+=" basic.cub"
         check=𐄂
-        col=31
 fi
 
-$pwd_cub3d/cub3d tests/test.cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
-if [ var = 0 ]
-    then
-        var=$(srcs/comp output.txt empty.txt)
-fi
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test"
-fi
-
-$pwd_cub3d/cub3d tests/test11..cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
-if [ var = 0 ]
-    then
-        var=$(srcs/comp output.txt empty.txt)
-fi
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test11"
-fi
-
-$pwd_cub3d/cub3d tests/test19.cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
-if [ var = 0 ]
-    then
-        var=$(srcs/comp output.txt empty.txt)
-fi
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test19"
-fi
-
-$pwd_cub3d/cub3d tests/test32.cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
-if [ var = 0 ]
-    then
-        var=$(srcs/comp output.txt empty.txt)
-fi
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test32"
-fi
-
-$pwd_cub3d/cub3d tests/test33.cub > output.txt
-var=$(srcs/comp output.txt correct2.txt)
-if [ var = 0 ]
-    then
-        var=$(srcs/comp output.txt empty.txt)
-fi
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test33"
-fi
+good_map test.cub test11..cub test19.cub test32.cub test33.cub
 
 if [ $KO != 0 ]
     then
@@ -128,409 +151,54 @@ if [ $KO != 0 ]
         echo "[\033[1;32mOK\033[0;1m]"
         echo "basic \033[1;32m$check\033[0;1m"
 fi
-###########################
+
+#######################
+
 KO=0
 str=""
 printf "Info error   : "
-$pwd_cub3d/cub3d tests/test0.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test0"
-fi
 
-$pwd_cub3d/cub3d tests/test1.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test1"
-fi
+error_map test0.cub test1.cub test15.cub test16.cub test17.cub test20.cub test21.cub test24.cub test25.cub test27.cub test28.cub test29.cub test34.cub
+print_result
 
-$pwd_cub3d/cub3d tests/test15.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test15"
-fi
+#######################
 
-$pwd_cub3d/cub3d tests/test16.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test16"
-fi
-
-$pwd_cub3d/cub3d tests/test17.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test17"
-fi
-
-$pwd_cub3d/cub3d tests/test20.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test20"
-fi
-
-$pwd_cub3d/cub3d tests/test21.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test21"
-fi
-
-$pwd_cub3d/cub3d tests/test24.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test24"
-fi
-
-$pwd_cub3d/cub3d tests/test25.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test25"
-fi
-
-$pwd_cub3d/cub3d tests/test27.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test27"
-fi
-
-$pwd_cub3d/cub3d tests/test28.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test28"
-fi
-
-$pwd_cub3d/cub3d tests/test29.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test29"
-fi
-
-$pwd_cub3d/cub3d tests/test34.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test34"
-fi
-
-if [ $KO != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed :$str\033[0m"
-    else
-        echo "[\033[1;32mOK\033[0;1m]"
-fi
-
-######################################
 KO=0
 str=""
 printf "Color error  : "
-$pwd_cub3d/cub3d tests/test3.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test3"
-fi
 
-$pwd_cub3d/cub3d tests/test8.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test8"
-fi
+error_map test3.cub test8.cub test14.cub test26.cub test35.cub test36.cub
+print_result
 
-$pwd_cub3d/cub3d tests/test14.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test14"
-        echo "[\033[1;31mKO\033[0;1m]"
-fi
+#######################
 
-$pwd_cub3d/cub3d tests/test26.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test26"
-        echo "[\033[1;31mKO\033[0;1m]"
-fi
-
-if [ $KO != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed :$str\033[0m"
-    else
-        echo "[\033[1;32mOK\033[0;1m]"
-fi
-
-########################################
 KO=0
 str=""
 printf "Map error    : "
-$pwd_cub3d/cub3d tests/test4.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test4"
-fi
 
-$pwd_cub3d/cub3d tests/test5.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test5"
-fi
+error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub test30.cub test31.cub
+print_result
 
-$pwd_cub3d/cub3d tests/test6.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test6"
-fi
+#######################
 
-$pwd_cub3d/cub3d tests/test7.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test7"
-fi
-
-$pwd_cub3d/cub3d tests/test9.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test9"
-fi
-
-$pwd_cub3d/cub3d tests/test18.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test18"
-fi
-
-$pwd_cub3d/cub3d tests/test22.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test22"
-fi
-
-$pwd_cub3d/cub3d tests/test23.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test23"
-fi
-
-$pwd_cub3d/cub3d tests/test30.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test30"
-fi
-
-$pwd_cub3d/cub3d tests/test31.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test31"
-fi
-
-if [ $KO != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed :$str\033[0m"
-    else
-        echo "[\033[1;32mOK\033[0;1m]"
-fi
-
-#######################################
 KO=0
 str=""
 printf "File error   : "
-$pwd_cub3d/cub3d tests/test10.cu > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test10"
-fi
 
-$pwd_cub3d/cub3d tests/test12.Cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test12"
-fi
+error_map test10.cu test12.Cub test13.cubi absent.cub
+print_result
 
-$pwd_cub3d/cub3d tests/test13.cubi > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" test13"
-fi
+#######################
 
-$pwd_cub3d/cub3d srcs/absent.cub > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" absent"
-fi
-
-if [ $KO != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed :$str\033[0m"
-    else
-        echo "[\033[1;32mOK\033[0;1m]"
-fi
-
-#####################################
 KO=0
 str=""
 printf "Save error   : "
-$pwd_cub3d/cub3d tests/test.cub --sav > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" --sav"
-fi
 
-$pwd_cub3d/cub3d tests/test.cub -save > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" -save"
-fi
+save_error --sav -save --saves
+print_result
 
-$pwd_cub3d/cub3d tests/test.cub --saves > output.txt
-var=$(srcs/comp output.txt correct.txt)
-if [ $var = $ok ]
-    then
-        count=$(($count+1))
-    else
-        KO=$(($KO+1))
-        str+=" --saves"
-fi
+#######################
 
-if [ $KO != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed :$str\033[0m"
-    else
-        echo "[\033[1;32mOK\033[0;1m]"
-fi
-
-#####################################
 printf "\n"
 if [ $count -eq $nb_test ]
     then

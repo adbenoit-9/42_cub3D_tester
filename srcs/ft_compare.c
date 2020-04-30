@@ -26,19 +26,20 @@ static int ft_compare(char *s1, char *s2)
     return (1);  
 }
 
-static char *gnl_str(char *file)
+static char *gnl_str(char *file, char *str)
 {
     int     fd;
-    char    *str;
     char    *tmp;
     int     ret;
 
     fd = open(file, O_RDONLY);
+    tmp = NULL;
     ret = get_next_line(fd, &str);
     while (ret == 1)
     {
         ret = get_next_line(fd, &tmp);
         free(tmp);
+        tmp = NULL;
     }
     close(fd);
     return (str);
@@ -49,8 +50,10 @@ static int test(char *out, char *corr)
     char    *s1;
     char    *s2;
 
-    s1 = gnl_str(out);
-    s2 = gnl_str(corr);
+    s1 = NULL;
+    s2 = NULL;
+    s1 = gnl_str(out, s1);
+    s2 = gnl_str(corr, s2);
     if (ft_compare(s1, s2) == 1)
     {
         printf("1");
