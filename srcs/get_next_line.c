@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../get_next_line.h"
-#include "../../cub3d.h"
+#include "get_next_line.h"
 
 int		ft_linesize(char *buf, size_t *size, t_list **lst)
 {

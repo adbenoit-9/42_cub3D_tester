@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../get_next_line.h"
+#include "get_next_line.h"
 
 t_list	*ft_lstnew(char content)
 {
