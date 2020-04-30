@@ -8,6 +8,7 @@ pwd_cub3d=..
 
 #first line massage in error case
 echo "Error" > correct.txt
+
 #OK message
 echo "destroy window done." > correct2.txt
 echo "" > empty.txt
