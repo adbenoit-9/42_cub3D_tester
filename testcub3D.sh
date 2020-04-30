@@ -6,7 +6,7 @@
 
 pwd_cub3d=..
 
-#first line massage in error case
+#first line message in error case
 echo "Error" > correct.txt
 
 #OK message
