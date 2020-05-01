@@ -30,15 +30,17 @@ good_map(){
     while [ $i -lt $tot_test ]
         do
             test=${!i}
-            $pwd_cub3d/cub3d tests/$test > output.txt
-            var=$(srcs/comp output.txt correct2.txt)
+            touch KO_outputs/$test
+            $pwd_cub3d/cub3d tests/$test > KO_outputs/$test
+            var=$(srcs/comp KO_outputs/$test correct2.txt)
             if [ var = 0 ]
                 then
-                    var=$(srcs/comp output.txt empty.txt)
+                    var=$(srcs/comp KO_outputs/$test empty.txt)
             fi
             if [ $var = $ok ]
                 then
                     count=$(($count+1))
+                    rm  KO_outputs/$test
             else
                      KO=$(($KO+1))
                     str+=" $test"
@@ -56,11 +58,13 @@ error_map(){
     while [ $i -lt $tot_test ]
         do
             test=${!i}
-            $pwd_cub3d/cub3d tests/$test > output.txt
-            var=$(srcs/comp output.txt correct.txt)
+            touch KO_outputs/$test
+            $pwd_cub3d/cub3d tests/$test > KO_outputs/$test
+            var=$(srcs/comp KO_outputs/$test correct.txt)
             if [ $var = $ok ]
                 then
                     count=$(($count+1))
+                    rm  KO_outputs/$test
             else
                      KO=$(($KO+1))
                     str+=" $test"
@@ -77,11 +81,13 @@ save_error(){
     while [ $i -lt $tot_test ]
         do
             save=${!i}
-            $pwd_cub3d/cub3d tests/basic.cub $save > output.txt
-            var=$(srcs/comp output.txt correct.txt)
+            touch KO_outputs/$save.txt
+            $pwd_cub3d/cub3d tests/basic.cub $save > KO_outputs/$save.txt
+            var=$(srcs/comp KO_outputs/$save.txt correct.txt)
             if [ $var = $ok ]
                 then
                     count=$(($count+1))
+                    rm  KO_outputs/$save.txt
             else
                      KO=$(($KO+1))
                     str+=" $save"
@@ -121,11 +127,11 @@ printf "Good map     : "
 
 str=""
 KO=0
-$pwd_cub3d/cub3d tests/basic.cub > output.txt
+$pwd_cub3d/cub3d tests/basic.cub > KO_outputs/$test
 var=$(srcs/comp output correct2.txt)
 if [ var = 0 ]
     then
-        var=$(srcs/comp output.txt empty.txt)
+        var=$(srcs/comp KO_outputs/$test empty.txt)
 fi
 if [ $var = $ok ]
     then
