@@ -11,6 +11,12 @@ Then you can excute the tester with `sh testcub3D.sh` !
 
 Make sure you quit correctly with `ESC` or the red cross when the window opens, otherwise in any case you'll `KO`.
 
+### Bonus
+
+You must add to all the tests (in tests_bonus directory) the informations you need for your bonus.
+
+Then you can excute the tester with `sh testcub3D.sh bonus` !
+
 ## SCREENSHOT
 
 ![Example](img/screenshot.png)
