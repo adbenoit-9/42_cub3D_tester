@@ -13,7 +13,7 @@ Make sure you quit correctly with `ESC` or the red cross when the window opens, 
 
 ### Bonus
 
-You must enter your necessary information for the bonus in 'add_bonus_inf.txt'.
+You must enter your necessary information for the bonus in `add_bonus_inf.txt`.
 
 Then you can excute the tester with `sh testcub3D.sh bonus` !
 
