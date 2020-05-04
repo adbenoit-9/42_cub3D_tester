@@ -17,6 +17,7 @@ nb_test=42
 count=0
 ok=1
 check=✔
+arg="$@"
 
 ############################
 ######## FUNCTIONS #########
@@ -30,20 +31,20 @@ good_map(){
     while [ $i -lt $tot_test ]
         do
             test=${!i}
-            touch KO_outputs/$test
-            $pwd_cub3d/cub3d tests/$test > KO_outputs/$test
-            var=$(srcs/comp KO_outputs/$test correct2.txt)
+            touch $outputs_file/$test
+            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
+            var=$(srcs/comp $outputs_file/$test correct2.txt)
             if [ var = 0 ]
                 then
-                    var=$(srcs/comp KO_outputs/$test empty.txt)
+                var=$(srcs/comp $outputs_file/$test empty.txt)
             fi
             if [ $var = $ok ]
                 then
-                    count=$(($count+1))
-                    rm  KO_outputs/$test
+                count=$(($count+1))
+                rm  $outputs_file/$test
             else
-                     KO=$(($KO+1))
-                    str+=" $test"
+                KO=$(($KO+1))
+                str+=" $test"
             fi
             i=$((i+1))
     done
@@ -58,16 +59,16 @@ error_map(){
     while [ $i -lt $tot_test ]
         do
             test=${!i}
-            touch KO_outputs/$test
-            $pwd_cub3d/cub3d tests/$test > KO_outputs/$test
-            var=$(srcs/comp KO_outputs/$test correct.txt)
+            touch $outputs_file/$test
+            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
+            var=$(srcs/comp $outputs_file/$test correct.txt)
             if [ $var = $ok ]
                 then
-                    count=$(($count+1))
-                    rm  KO_outputs/$test
+                count=$(($count+1))
+                rm  $outputs_file/$test
             else
-                     KO=$(($KO+1))
-                    str+=" $test"
+                KO=$(($KO+1))
+                str+=" $test"
             fi
             i=$((i+1))
     done
@@ -81,16 +82,16 @@ save_error(){
     while [ $i -lt $tot_test ]
         do
             save=${!i}
-            touch KO_outputs/$save.txt
-            $pwd_cub3d/cub3d tests/basic.cub $save > KO_outputs/$save.txt
-            var=$(srcs/comp KO_outputs/$save.txt correct.txt)
+            touch $outputs_file/$save.txt
+            $pwd_cub3d/cub3d $tests_file/basic.cub $save > $outputs_file/$save.txt
+            var=$(srcs/comp $outputs_file/$save.txt correct.txt)
             if [ $var = $ok ]
                 then
-                    count=$(($count+1))
-                    rm  KO_outputs/$save.txt
+                count=$(($count+1))
+                rm  $outputs_file/$save.txt
             else
-                     KO=$(($KO+1))
-                    str+=" $save"
+                KO=$(($KO+1))
+                str+=" $save"
             fi
             i=$((i+1))
     done
@@ -101,7 +102,7 @@ print_result(){
     then
         echo "[\033[1;31mKO\033[0;1m]"
         echo "\033[7mFailed :$str\033[0m"
-    else
+else
         echo "[\033[1;32mOK\033[0;1m]"
 fi
 }
@@ -110,39 +111,57 @@ fi
 ######## EXCUTION #########
 ###########################
 
-rm -rf KO_outputs/
-mkdir KO_outputs
-make
+if [ -z $arg ]
+    then
+    make
+    tests_file=tests_bonus
+    outputs_file=KO_outputs
+elif [ $arg = "bonus" ]
+    then
+    make bonus
+    tests_file=tests
+    outputs_file=KO_bonus_outputs
+else
+    echo "\"$arg\" invalid option"
+    echo "usage: testcub3D.sh"
+    echo "    or testcub3D.sh bonus"
+    exit
+fi
+
+rm -rf KO_outputs
+rm -rf KO_bonus_outputs
+mkdir $outputs_file/
+
 if [ -f $pwd_cub3d/cub3d ]
     then
-        continue
-    else
-        echo "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
-        exit
+    continue
+else
+    echo "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
+    exit
 fi
 printf "\n\n"
 
-echo "\033[4;34;1mTESTER CUB3D\033[0;1m"
+echo "\033[4;34;1mTESTER CUB3D\033[0;1m\033[1;34;1m $1\033[0;1m"
 printf "\n"
 echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m$check\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
 printf "Good map     : "
 
 str=""
 KO=0
-$pwd_cub3d/cub3d tests/basic.cub > KO_outputs/basic.cub
-var=$(srcs/comp KO_outputs/basic.cub correct2.txt)
+$pwd_cub3d/cub3d $tests_file/basic.cub > $outputs_file/basic.cub
+var=$(srcs/comp $outputs_file/basic.cub correct2.txt)
 if [ var = 0 ]
     then
-        var=$(srcs/comp KO_outputs/basic.cub empty.txt)
+    var=$(srcs/comp $outputs_file/basic.cub empty.txt)
 fi
 if [ $var = $ok ]
     then
-        count=$(($count+1))
-        rm  KO_outputs/basic.cub
-    else
-        KO=$(($KO+1))
-        str+=" basic.cub"
-        check=𐄂
+    count=$(($count+1))
+    rm  $outputs_file/basic.cub
+else
+    KO=$(($KO+1))
+    str+=" basic.cub"
+    check=𐄂
 fi
 
 good_map test.cub test11..cub test19.cub test32.cub test33.cub
@@ -152,12 +171,12 @@ if [ $KO != 0 ]
         echo "[\033[1;31mKO\033[0;1m]"
         if [ $check = ✔ ]
             then
-                echo "basic \033[1;32m$check\033[0;1m"
-            else
-                echo "basic \033[1;31m$check\033[0;1m"
+            echo "basic \033[1;32m$check\033[0;1m"
+        else
+            echo "basic \033[1;31m$check\033[0;1m"
         fi
         echo "\033[7mFailed :$str\033[0m"
-    else
+else
         echo "[\033[1;32mOK\033[0;1m]"
         echo "basic \033[1;32m$check\033[0;1m"
 fi
@@ -212,16 +231,12 @@ print_result
 printf "\n"
 if [ $count -eq $nb_test ]
     then
-    {
-        echo "[ \033[1;32m$count / $nb_test\033[0;1m ]"
-        echo "\033[1;32mGreat !\033[0;1m\n"
-    }
-    else
-        {
-        echo "[ \033[1;31m$count / $nb_test\033[0;1m ]"
-        echo "\033[1;31mLOL try again !\033[0;1m\n"
-    }
+    echo "[ \033[1;32m$count / $nb_test\033[0;1m ]"
+    echo "\033[1;32mGreat !\033[0;1m\n"
+else
+    echo "[ \033[1;31m$count / $nb_test\033[0;1m ]"
+    echo "\033[1;31mLOL try again !\033[0;1m\n"
 fi
 
-#make fclean
+make fclean
 rm *.txt
