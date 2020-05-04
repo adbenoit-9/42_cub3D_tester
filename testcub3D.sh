@@ -110,6 +110,8 @@ fi
 ######## EXCUTION #########
 ###########################
 
+rm -rf KO_outputs/
+mkdir KO_outputs
 make
 if [ -f $pwd_cub3d/cub3d ]
     then
@@ -127,15 +129,16 @@ printf "Good map     : "
 
 str=""
 KO=0
-$pwd_cub3d/cub3d tests/basic.cub > KO_outputs/$test
-var=$(srcs/comp output correct2.txt)
+$pwd_cub3d/cub3d tests/basic.cub > KO_outputs/basic.cub
+var=$(srcs/comp KO_outputs/basic.cub correct2.txt)
 if [ var = 0 ]
     then
-        var=$(srcs/comp KO_outputs/$test empty.txt)
+        var=$(srcs/comp KO_outputs/basic.cub empty.txt)
 fi
 if [ $var = $ok ]
     then
         count=$(($count+1))
+        rm  KO_outputs/basic.cub
     else
         KO=$(($KO+1))
         str+=" basic.cub"
@@ -220,5 +223,5 @@ if [ $count -eq $nb_test ]
     }
 fi
 
-make fclean
+#make fclean
 rm *.txt
