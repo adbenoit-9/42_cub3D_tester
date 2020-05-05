@@ -15,11 +15,11 @@ int ft_add_bonus(char *file, char *bonus, char *new)
 
     fd = open(bonus, O_RDONLY);
     size = read(fd, buffer, 4096);
+    buffer[size] = 0;
     close(fd);
     fd = open(file, O_RDONLY);
     k = 0;
     x = 0;
-    buffer[size] = 0;
     while ((j = get_next_line(fd, &line)) == 1 && k < 4096)
     {
         i = 0;
@@ -47,6 +47,13 @@ int ft_add_bonus(char *file, char *bonus, char *new)
             k++;
         }
         ret[k] = '\n';
+        k++;
+    }
+    i = 0;
+    while (line[i])
+    {
+        ret[k] = line[i];
+        i++;
         k++;
     }
     ret[k] = 0;

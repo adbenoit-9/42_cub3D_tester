@@ -1,1 +1,8 @@
-
+S1 ./textures/the_north_texture.xpm
+SA ./textures/the_north_texture.xpm
+P0 ./textures/the_north_texture.xpm
+P1 ./textures/the_north_texture.xpm
+P2 ./textures/the_north_texture.xpm
+P3 ./textures/the_north_texture.xpm
+P4 ./textures/the_north_texture.xpm
+D ./textures/the_north_texture.xpm
