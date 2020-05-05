@@ -1,8 +1,8 @@
-S1 ./textures/the_north_texture.xpm
-SA ./textures/the_north_texture.xpm
-P0 ./textures/the_north_texture.xpm
-P1 ./textures/the_north_texture.xpm
-P2 ./textures/the_north_texture.xpm
-P3 ./textures/the_north_texture.xpm
-P4 ./textures/the_north_texture.xpm
-D ./textures/the_north_texture.xpm
+S1 ../xpm/dye_powder_cyan.xpm
+SA ../xpm/spider_eye_fermented.xpm
+P0 ../xpm/bow_pulling_0.xpm
+P1 ../xpm/bow_pulling_1.xpm
+P2 ../xpm/bow_pulling_2.xpm
+P3 ../xpm/bow_standby.xpm
+P4 ../xpm/bow_pull_3.xpm
+D ../xpm/door_iron.xpm
