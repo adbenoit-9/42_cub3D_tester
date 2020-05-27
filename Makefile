@@ -6,7 +6,7 @@
 #    By: Adeline <Adeline@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/24 11:47:18 by adbenoit          #+#    #+#              #
-#    Updated: 2020/05/04 21:33:28 by Adeline          ###   ########.fr        #
+#    Updated: 2020/05/27 18:27:51 by Adeline          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	test_cub3d
 
 CUB3D_DIR	= ..
 
-CUB3D	= $(CUB3D_DIR)/cub3d
+CUB3D	= $(CUB3D_DIR)/Cub3D
 
 COMP_DIR= srcs/compare
 
