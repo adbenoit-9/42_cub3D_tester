@@ -250,7 +250,7 @@ else
         echo "basic \033[1;32m$check\033[0m"
 fi
 
-echo "Info error   : "
+printf "Info error   : "
 print_result $KO1 $str1
 
 printf "Color error  : "
