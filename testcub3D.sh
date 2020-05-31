@@ -10,10 +10,10 @@ pwd_cub3d=..
 echo "Error" > correct.txt
 
 #OK message
-echo "destroy window done." > correct2.txt
+echo "Game exit." > correct2.txt
 echo "" > empty.txt
 
-nb_test=42
+nb_test=43
 count=0
 ok=1
 check=✔
@@ -114,7 +114,7 @@ print_result(){
         echo "[\033[1;31mKO\033[0;1m]"
         echo "\033[7mFailed : $str_KO\033[0m"
     else
-        echo "[\033[1;32mOK\033[0;1m]"
+        echo "[\033[1;32mOK\033[0m]"
     fi
 }
 
@@ -135,8 +135,11 @@ add_bonus(){
 ###########################
 
 rm tests_bonus/*
+rm KO_bonus_outputs/*
+rm KO_outputs/*
+
 all_tests=$(ls tests/)
-echo $all_test
+
 if [ -z $arg ]
     then
     make
@@ -155,10 +158,6 @@ else
     exit
 fi
 
-rm -rf KO_outputs
-rm -rf KO_bonus_outputs
-mkdir $outputs_file/
-
 if [ -f $pwd_cub3d/Cub3D ]
     then
     continue
@@ -167,8 +166,6 @@ else
     exit
 fi
 printf "\n\n"
-
-
 
 str=""
 KO=0
@@ -191,35 +188,35 @@ fi
 good_map test.cub test11..cub test19.cub test32.cub test33.cub
 str0=$str
 KO0=$KO
-#######################
+########### INFO ERR ############
 
 KO=0
 str=""
 error_map test0.cub test1.cub test15.cub test16.cub test17.cub test20.cub test21.cub test24.cub test25.cub test27.cub test28.cub test29.cub test34.cub
 str1=$str
 KO1=$KO
-#######################
+############ COLOR ERR ###########
 
 KO=0
 str=""
 error_map test3.cub test8.cub test14.cub test26.cub test35.cub test36.cub
 str2=$str
 KO2=$KO
-#######################
+############ MAP ERR ###########
 
 KO=0
 str=""
-error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub test30.cub test31.cub
+error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub test30.cub test31.cub test37.cub
 str3=$str
 KO3=$KO
-#######################
+############ FILE ERR ###########
 
 KO=0
 str=""
 error_map test10.cu test12.Cub test13.cubi absent.cub
 str4=$str
 KO4=$KO
-#######################
+############ SAVE ERR ###########
 
 KO=0
 str=""
@@ -240,7 +237,7 @@ printf "Good map     : "
 
 if [ $KO0 != 0 ]
     then
-        echo "[\033[1;31mKO\033[0;1m]"
+        echo "[\033[1;31mKO\033[0m]"
         if [ $check = ✔ ]
             then
             echo "basic \033[1;32m$check\033[0;1m"
@@ -249,11 +246,11 @@ if [ $KO0 != 0 ]
         fi
         echo "\033[7mFailed :$str0\033[0m"
 else
-        echo "[\033[1;32mOK\033[0;1m]"
-        echo "basic \033[1;32m$check\033[0;1m"
+        echo "[\033[1;32mOK\033[0m]"
+        echo "basic \033[1;32m$check\033[0m"
 fi
 
-printf "Info error   : "
+echo "Info error   : "
 print_result $KO1 $str1
 
 printf "Color error  : "
