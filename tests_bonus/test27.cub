@@ -1,5 +1,5 @@
-R 20 20
-NO ./textures/the_north_texture.xpm
+R 1920 1080
+NO    
 SO ./textures/the_south_texture.xpm
 WE ./textures/the_west_texture.xpm
 EA ./textures/the_east_texture.xpm
@@ -7,6 +7,20 @@ EA ./textures/the_east_texture.xpm
 S ./textures/the_sprite_texture.xpm
 F 220,100,0
 C 225,30,0
+
+SF ../xpm/library_game/eye.xpm
+SD ../xpm/library_game/eye_fermented.xpm
+W0 ../xpm/weapon/bow_pulling_0.xpm
+W1 ../xpm/weapon/bow_pulling_1.xpm
+W2 ../xpm/weapon/bow_pulling_2.xpm
+W3 ../xpm/weapon/bow_standby.xpm
+DN ../xpm/door/door_wood.xpm
+DS ../xpm/door/door_otherside.xpm
+DE ../xpm/door/door_wood.xpm
+DW ../xpm/door/door_otherside.xpm
+LI ../xpm/heart.xpm
+LO ../xpm/replay_button.xpm
+WI ../xpm/win_game.xpm
 
         1111111111111111111111111
         1000000000110000000000001
