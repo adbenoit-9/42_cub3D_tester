@@ -134,10 +134,6 @@ add_bonus(){
 ######## EXCUTION #########
 ###########################
 
-rm tests_bonus/*
-rm KO_bonus_outputs/*
-rm KO_outputs/*
-
 all_tests=$(ls tests/)
 
 if [ -z $arg ]
@@ -150,6 +146,8 @@ elif [ $arg = "bonus" ]
     make bonus
     tests_file=tests_bonus
     outputs_file=KO_bonus_outputs
+    rm -rf tests_bonus
+    mkdir tests_bonus
     add_bonus $all_tests
 else
     echo "\"$arg\" invalid option"
@@ -166,6 +164,9 @@ else
     exit
 fi
 printf "\n\n"
+
+rm -rf $outputs_file
+mkdir $outputs_file
 
 str=""
 KO=0
