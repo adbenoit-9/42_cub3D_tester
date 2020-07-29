@@ -102,7 +102,7 @@ print_result(){
     tot_KO=$#
     tot_KO=$(($tot_KO+1))
     str_KO=""
-    while [ $i -lt $tot_test ]
+    while [ $i -lt $tot_KO ]
         do
         test_KO=${!i}
         str_KO+=' '
@@ -208,7 +208,7 @@ KO=0
 str=""
 error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub
 str3=$str
-KO3=$KO
+KO3=$
 ############ FILE ERR ###########
 
 KO=0
