@@ -5,8 +5,8 @@ WE ./textures/the_west_texture.xpm
 EA ./textures/the_east_texture.xpm
 
 S ./textures/the_sprite_texture.xpm
-F 220,100,0
-C 225,30,0
+F 199,220,227
+C 149,226,250
 
 1111111
 1100011

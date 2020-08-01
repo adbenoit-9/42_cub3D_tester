@@ -13,7 +13,7 @@ echo "Error" > correct.txt
 echo "Game exit." > correct2.txt
 echo "" > empty.txt
 
-nb_test=49
+nb_test=50
 count=0
 ok=1
 check=✔
@@ -186,7 +186,7 @@ else
     check=𐄂
 fi
 
-good_map test.cub test11..cub test19.cub test32.cub test33.cub test42.cub
+good_map test.cub test11..cub test19.cub test32.cub test33.cub test42.cub test44.cub
 str0=$str
 KO0=$KO
 ########### INFO ERR ############
