@@ -13,7 +13,7 @@ echo "Error" > correct.txt
 echo "Game exit." > correct2.txt
 echo "" > empty.txt
 
-nb_test=47
+nb_test=49
 count=0
 ok=1
 check=✔
@@ -186,14 +186,15 @@ else
     check=𐄂
 fi
 
-good_map test.cub test11..cub test19.cub test32.cub test33.cub
+good_map test.cub test11..cub test19.cub test32.cub test33.cub test42.cub
 str0=$str
 KO0=$KO
 ########### INFO ERR ############
 
 KO=0
 str=""
-error_map test0.cub test1.cub test15.cub test16.cub test17.cub test20.cub test21.cub test24.cub test25.cub test27.cub test28.cub test29.cub test34.cub
+error_map test0.cub test1.cub test15.cub test16.cub test17.cub test20.cub test21.cub \
+test24.cub test25.cub test27.cub test28.cub test29.cub test34.cub test43.cub
 str1=$str
 KO1=$KO
 ############ COLOR ERR ###########
@@ -207,7 +208,8 @@ KO2=$KO
 
 KO=0
 str=""
-error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub
+error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub \
+test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub
 str3=$str
 KO3=$KO
 ############ FILE ERR ###########
@@ -231,7 +233,8 @@ KO5=$KO
 
 echo "\033[4;34;1mTESTER CUB3D\033[0;1m\033[1;34;1m $1\033[0;1m"
 printf "\n"
-echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m✔\033[0;1m \033[1;36mfor the rest of the tester !\033[0m"
+echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m✔\033[0;1m \
+\033[1;36mfor the rest of the tester !\033[0m"
 printf "\n"
 
 printf "Good map     : "
