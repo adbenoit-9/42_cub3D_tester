@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Adeline <Adeline@student.42.fr>            +#+  +:+       +#+         #
+#    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/24 11:47:18 by adbenoit          #+#    #+#              #
-#    Updated: 2020/05/27 18:27:51 by Adeline          ###   ########.fr        #
+#    Updated: 2020/08/06 19:48:20 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	test_cub3d
 
 CUB3D_DIR	= ..
 
-CUB3D	= $(CUB3D_DIR)/Cub3D
+CUB3D	= $(CUB3D_DIR)/cub3d
 
 COMP_DIR= srcs/compare
 

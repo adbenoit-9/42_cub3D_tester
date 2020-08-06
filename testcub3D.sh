@@ -32,7 +32,7 @@ good_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/Cub3D $tests_file/$test > $outputs_file/$test
+            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
             var=$(srcs/compare/comp $outputs_file/$test correct2.txt)
             if [ var = 0 ]
                 then
@@ -60,7 +60,7 @@ error_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/Cub3D $tests_file/$test > $outputs_file/$test
+            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
             var=$(srcs/compare/comp $outputs_file/$test correct.txt)
             if [ $var = $ok ]
                 then
@@ -83,7 +83,7 @@ save_error(){
         do
         save=${!i}
         touch $outputs_file/$save.txt
-        $pwd_cub3d/Cub3D $tests_file/basic.cub $save > $outputs_file/$save.txt
+        $pwd_cub3d/cub3d $tests_file/basic.cub $save > $outputs_file/$save.txt
         var=$(srcs/compare/comp $outputs_file/$save.txt correct.txt)
         if [ $var = $ok ]
             then
@@ -156,7 +156,7 @@ else
     exit
 fi
 
-if [ -f $pwd_cub3d/Cub3D ]
+if [ -f $pwd_cub3d/cub3d ]
     then
     continue
 else
@@ -170,7 +170,7 @@ mkdir $outputs_file
 
 str=""
 KO=0
-$pwd_cub3d/Cub3D $tests_file/basic.cub > $outputs_file/basic.cub
+$pwd_cub3d/cub3d $tests_file/basic.cub > $outputs_file/basic.cub
 var=$(srcs/compare/comp $outputs_file/basic.cub correct2.txt)
 if [ var = 0 ]
     then
