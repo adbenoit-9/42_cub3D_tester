@@ -13,7 +13,7 @@ echo "Error" > correct.txt
 echo "Game exit." > correct2.txt
 echo "" > empty.txt
 
-nb_test=51
+nb_test=56
 count=0
 ok=1
 check=✔
@@ -32,7 +32,7 @@ good_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
+            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test
             var=$(srcs/compare/comp $outputs_file/$test correct2.txt)
             if [ var = 0 ]
                 then
@@ -60,7 +60,7 @@ error_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/cub3d $tests_file/$test > $outputs_file/$test
+            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test
             var=$(srcs/compare/comp $outputs_file/$test correct.txt)
             if [ $var = $ok ]
                 then
@@ -83,7 +83,7 @@ save_error(){
         do
         save=${!i}
         touch $outputs_file/$save.txt
-        $pwd_cub3d/cub3d $tests_file/basic.cub $save > $outputs_file/$save.txt
+        $pwd_cub3d/cub3D $tests_file/basic.cub $save > $outputs_file/$save.txt
         var=$(srcs/compare/comp $outputs_file/$save.txt correct.txt)
         if [ $var = $ok ]
             then
@@ -156,7 +156,7 @@ else
     exit
 fi
 
-if [ -f $pwd_cub3d/cub3d ]
+if [ -f $pwd_cub3d/cub3D ]
     then
     continue
 else
@@ -170,7 +170,7 @@ mkdir $outputs_file
 
 str=""
 KO=0
-$pwd_cub3d/cub3d $tests_file/basic.cub > $outputs_file/basic.cub
+$pwd_cub3d/cub3D $tests_file/basic.cub > $outputs_file/basic.cub
 var=$(srcs/compare/comp $outputs_file/basic.cub correct2.txt)
 if [ var = 0 ]
     then
@@ -209,7 +209,8 @@ KO2=$KO
 KO=0
 str=""
 error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub \
-test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub test45.cub
+test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub test45.cub \
+test46.cub test47.cub test48.cub test49.cub test50.cub
 str3=$str
 KO3=$KO
 ############ FILE ERR ###########
@@ -278,7 +279,6 @@ else
     echo "\033[1;31mLOL try again !\033[0;1m\n"
 fi
 
-make fclean
 rm correct.txt
 rm correct2.txt
 rm empty.txt
