@@ -269,14 +269,15 @@ print_result $KO4 $str4
 
 printf "Save error   : "
 print_result $KO5 $str5
+echo "\033[3mMake sure that no window opens when you put in argument '--save'\033[0m\n"
 
 if [ $count -eq $nb_test ]
     then
-    echo "[ \033[1;32m$count / $nb_test\033[0;1m ]"
+    echo "[ \033[1;32m$count / $nb_test\033[0m ]"
     echo "\033[1;32mGreat !\033[0;1m\n"
 else
-    echo "[ \033[1;31m$count / $nb_test\033[0;1m ]"
-    echo "\033[1;31mLOL try again !\033[0;1m\n"
+    echo "[ \033[1;31m$count / $nb_test\033[0m ]"
+    echo "\033[1;31mLOL try again !\033[0m\n"
 fi
 
 rm correct.txt
