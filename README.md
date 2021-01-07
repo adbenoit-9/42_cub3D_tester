@@ -17,6 +17,6 @@ You must enter your necessary information for the bonus in `add_bonus_inf.txt`.
 
 Then you can excute the tester with `sh testcub3D.sh bonus` !
 
-## SCREENSHOT
+## PREVIEW
 
 ![Example](img/screenshot.png)
