@@ -1,4 +1,4 @@
-# tester_cub3d
+# CUB3D TESTER
 
 This tester only check the ouput (so the parsing) of cub3d.
 If the program close properly (example "Game exit.") and if in case of an error, return "Error\n".
