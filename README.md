@@ -1,6 +1,6 @@
 # tester_cub3d
 
-This tester only check the ouput of cub3d.
+This tester only check the ouput (so the parsing) of cub3d.
 If the program close properly (example "Game exit.") and if in case of an error, return "Error\n".
 
 ## USAGE
@@ -15,7 +15,7 @@ Make sure you quit correctly with `ESC` or the red cross when the window opens, 
 
 You must enter your necessary information for the bonus in `add_bonus_inf.txt`.
 
-Then you can excute the tester with `sh testcub3D.sh bonus` !
+Then you can execute the tester with `sh testcub3D.sh bonus` !
 
 ## PREVIEW
 
