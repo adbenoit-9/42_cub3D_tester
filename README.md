@@ -4,11 +4,9 @@ This tester only check the ouput (so the parsing) of cub3d 42's project.
 If the program close properly (example "Game exit.") and if in case of an error, return "Error\n".
 
 ## USAGE
-
-You must change the path of cub3d in the .sh and the Makefile.
-
 ```
 $ git clone https://github.com/adbenoit-9/42_cub3D_tester.git
+$ cd 42_cub3D_tester
 $ sh testcub3D.sh
 ```
 Make sure you quit correctly with `ESC` or the red cross when the window opens, otherwise in any case you'll `KO`.
