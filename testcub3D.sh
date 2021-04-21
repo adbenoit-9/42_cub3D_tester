@@ -19,6 +19,20 @@ arg="$@"
 ######## FUNCTIONS #########
 ############################
 
+progress_anim(){
+    printf "     "
+    while :;
+    do
+        printf "\b\b\b\b\b[   ]"
+        sleep 0.5
+        printf "\b\b\b\b\b[.  ]"
+        sleep 0.5
+        printf "\b\b\b\b\b[.. ]"
+        sleep 0.5
+        printf "\b\b\b\b\b[...]"
+        sleep 0.5
+    done
+}
 #For good map
 good_map(){
     i=1
@@ -28,19 +42,17 @@ good_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test 2> failed.txt
-            var=$(srcs/compare/comp $outputs_file/$test error_msg.txt)
-            if [ $var -ne $ok ]
-                then
-                var=$(srcs/compare/comp $outputs_file/$test failed.txt)
-            fi
-            if [ $var -ne $ok ]
+            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test \
+            2>> $outputs_file/$test & cub_pid=$! 0> /dev/null
+            sleep 0.1
+            kill $cub_pid 2> /dev/null
+            if [ $? = 0 ]
                 then
                 count=$(($count+1))
                 rm  $outputs_file/$test
             else
                 KO=$(($KO+1))
-                str+="\n- $test"
+                str+=" $test"
             fi
             i=$((i+1))
     done
@@ -56,7 +68,10 @@ error_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test
+            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test \
+            2>> $outputs_file/$test & cub_pid=$! 0> /dev/null
+            sleep 0.3
+            kill $cub_pid 2> /dev/null
             var=$(srcs/compare/comp $outputs_file/$test error_msg.txt)
             if [ $var = $ok ]
                 then
@@ -64,7 +79,7 @@ error_map(){
                 rm  $outputs_file/$test
             else
                 KO=$(($KO+1))
-                str+="\n- $test"
+                str+=" $test"
             fi
             i=$((i+1))
     done
@@ -79,7 +94,10 @@ save_error(){
         do
         save=${!i}
         touch $outputs_file/$save.txt
-        $pwd_cub3d/cub3D $tests_file/basic.cub $save > $outputs_file/$save.txt
+        $pwd_cub3d/cub3D $tests_file/basic.cub $save > $outputs_file/$save.txt \
+        2>> $outputs_file/$save.txt & cub_pid=$! 0> /dev/null
+        sleep 0.1
+        kill $cub_pid 2> /dev/null
         var=$(srcs/compare/comp $outputs_file/$save.txt error_msg.txt)
         if [ $var = $ok ]
             then
@@ -101,16 +119,22 @@ print_result(){
     while [ $i -lt $tot_KO ]
         do
         test_KO=${!i}
-        str_KO+=' '
+        tmp=$(($i%2))
+        if [ $tmp = 0 ]
+        then
+            str_KO+='\n'
+        else
+            str_KO+='\t'
+        fi
         str_KO+=$test_KO
         i=$((i+1))
     done
-    if [ $1 != 0 ]
+    if [ $1 -ne 0 ]
         then
-        echo "[\033[1;31mKO\033[0;1m]"
-        echo "\033[7mFailed : $str_KO\033[0m"
+        echo -e "[\033[1;31mKO\033[1;0m]\033[0m"
+        echo -e "\033[31mnames and outputs of the KO tests are in KO_outputs/\033[0m"
     else
-        echo "[\033[1;32mOK\033[0m]"
+        echo -e "[\033[1;32mOK\033[1;0m]\033[0m"
     fi
 }
 
@@ -146,135 +170,148 @@ elif [ $arg = "bonus" ]
     mkdir tests_bonus
     add_bonus $all_tests
 else
-    echo "\"$arg\" invalid option"
-    echo "usage: testcub3D.sh"
-    echo "    or testcub3D.sh bonus"
+    echo -e "\"$arg\" invalid option"
+    echo -e "usage: testcub3D.sh"
+    echo -e "    or testcub3D.sh bonus"
     exit
 fi
 
 if [ -f $pwd_cub3d/cub3D ]
     then
-    continue
+    echo -n ""
 else
-    echo "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
+    echo -e "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
     exit
 fi
-printf "\n\n"
 
 rm -rf $outputs_file
 mkdir $outputs_file
 
+###########################
+########## TESTS ##########
+###########################
+
+echo -e "\033[34;1m"
+cat title.txt
+echo -e "\n\n\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m✔\033[0;1m \
+\033[1;36mfor the rest of the tester !\033[0m"
+printf "\n"
+
+printf "\033[33;1mTester is lauching "
+progress_anim & pro_pid=$!
+
 str=""
 KO=0
-$pwd_cub3d/cub3D $tests_file/basic.cub > $outputs_file/basic.cub 2> failed.txt
-var=$(srcs/compare/comp $outputs_file/basic.cub error_msg.txt)
-if [ $var -ne $ok ]
-    then
-    var=$(srcs/compare/comp $outputs_file/basic.cub failed.txt)
-fi
-if [ $var -ne $ok ]
-    then
-    count=$(($count+1))
-    rm  $outputs_file/basic.cub
-else
-    KO=$(($KO+1))
-    str+="\nbasic.cub"
-    check=𐄂
-fi
 
-good_map test.cub test11..cub test19.cub test32.cub test33.cub test42.cub test44.cub
+basic(){
+    $pwd_cub3d/cub3D $tests_file/basic.cub > $outputs_file/basic.cub \
+    2>> $outputs_file/basic.cub & cub_pid=$! 0> /dev/null
+    sleep 0.1
+    kill $cub_pid 2> /dev/null
+    if [ $? = 0 ]
+    then
+        count=$(($count+1))
+        rm  $outputs_file/basic.cub
+    else
+    check=x
+    fi
+}
+
+basic 2> /dev/null
+
+good_map good_map0.cub good_map1..cub good_map2.cub good_map3.cub good_map4.cub \
+good_map5.cub good_map6.cub 2> /dev/null
 str0=$str
 KO0=$KO
+
 ########### INFO ERR ############
 
 KO=0
 str=""
-error_map test0.cub test1.cub test15.cub test16.cub test17.cub test20.cub test21.cub \
-test24.cub test25.cub test27.cub test28.cub test29.cub test34.cub test43.cub
+error_map info_error0.cub info_error1.cub info_error10.cub info_error11.cub \
+info_error12.cub info_error13.cub info_error2.cub info_error3.cub info_error4.cub \
+info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub 2> /dev/null
 str1=$str
 KO1=$KO
+
 ############ COLOR ERR ###########
 
 KO=0
 str=""
-error_map test3.cub test8.cub test14.cub test26.cub test35.cub test36.cub
+error_map color_error0.cub color_error1.cub color_error2.cub color_error3.cub \
+color_error4.cub color_error5.cub 2> /dev/null
 str2=$str
 KO2=$KO
+
 ############ MAP ERR ###########
 
 KO=0
 str=""
-error_map test4.cub test5.cub test6.cub test7.cub test9.cub test18.cub test22.cub test23.cub \
-test30.cub test31.cub test37.cub test38.cub test39.cub test40.cub test41.cub test45.cub \
-test46.cub test47.cub test48.cub test49.cub test50.cub test51.cub test52.cub test53.cub test54.cub
+error_map map_error0.cub map_error1.cub map_error10.cub map_error11.cub \
+map_error12.cub map_error13.cub map_error14.cub map_error15.cub map_error16.cub \
+map_error17.cub map_error18.cub map_error19.cub map_error2.cub map_error20.cub \
+map_error21.cub map_error22.cub map_error23.cub map_error24.cub map_error3.cub \
+map_error4.cub map_error5.cub map_error6.cub map_error7.cub map_error8.cub \
+map_error9.cub 2> /dev/null
 str3=$str
 KO3=$KO
+
 ############ FILE ERR ###########
 
 KO=0
 str=""
-error_map test10.cu test12.Cub test13.cubi absent.cub
+error_map file_error0.cu file_error1.Cub file_error2.cubi file_not_found.cub 2> /dev/null
 str4=$str
 KO4=$KO
+
 ############ SAVE ERR ###########
 
 KO=0
 str=""
-save_error --sav -save --saves
+save_error --sav -save --saves 2> /dev/null
 str5=$str
 KO5=$KO
+
+kill $pro_pid
+wait $pro_pid 2> /dev/null
 
 ###########################
 ######## DISPLAY #########
 ###########################
 
-echo "\033[4;34;1mTESTER CUB3D\033[0;1m\033[1;34;1m $1\033[0;1m"
-printf "\n"
-echo "\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m✔\033[0;1m \
-\033[1;36mfor the rest of the tester !\033[0m"
-printf "\n"
-
-printf "Good map     : "
-
-if [ $KO0 != 0 ]
-    then
-        echo "[\033[1;31mKO\033[0m]"
-        if [ $check = ✔ ]
-            then
-            echo "basic \033[1;32m$check\033[0;1m"
-        else
-            echo "basic \033[1;31m$check\033[0;1m"
-        fi
-        echo "\033[7mFailed :$str0\033[0m"
+if [ $check = ✔ ]
+then
+    echo -e "\r\033[0mbasic \033[1;32m$check                  \033[0m"
 else
-        echo "[\033[1;32mOK\033[0m]"
-        echo "basic \033[1;32m$check\033[0m"
+    echo -e "\r\033[0mbasic \033[1;31m$check                  \033[0m"
 fi
 
-printf "Info error   : "
+echo -ne "\n\033[1mGood map     : "
+print_result $KO0 $str0
+
+echo -ne "\n\033[1mInfo error   : "
 print_result $KO1 $str1
 
-printf "Color error  : "
+echo -ne "\n\033[1mColor error  : "
 print_result $KO2 $str2
 
-printf "Map error    : "
+echo -ne "\n\033[1mMap error    : "
 print_result $KO3 $str3
 
-printf "File error   : "
+echo -ne "\n\033[1mFile error   : "
 print_result $KO4 $str4
 
-printf "Save error   : "
+echo -ne "\n\033[1mSave error   : "
 print_result $KO5 $str5
-echo "\033[3mMake sure that no window opens when you put in argument '--save'\033[0m\n"
+echo -e "\033[3mMake sure that no window opens when you put in argument '--save'\033[0m\n"
 
 if [ $count -eq $nb_test ]
     then
-    echo "[ \033[1;32m$count / $nb_test\033[0m ]"
-    echo "\033[1;32mGreat !\033[0;1m\n"
+    echo -e "[ \033[1;32m$count / $nb_test\033[0m ]"
+    echo -e "\033[1;32mGreat !\033[0;1m\n"
 else
-    echo "[ \033[1;31m$count / $nb_test\033[0m ]"
-    echo "\033[31mLOL try again !\033[3;31m\n-> Errors in KO_outputs\033[0m"
+    echo -e "[ \033[1;31m$count / $nb_test\033[0m ]"
+    echo -e "\033[1;31mLOL try again !\033[0m\n"
 fi
 
 rm error_msg.txt
-rm failed.txt
