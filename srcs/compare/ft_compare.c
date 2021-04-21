@@ -59,10 +59,10 @@ static int test(char *out, char *corr)
         printf("1");
         return (1);
     }
-    printf("0");
+    printf("2");
     free(s1);
     free(s2);
-    return (0);
+    return (2);
 }
 
 int     main(int ac, char **av)

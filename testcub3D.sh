@@ -7,11 +7,7 @@
 pwd_cub3d=..
 
 #first line message in error case
-echo "Error" > correct.txt
-
-#OK message
-echo "Game exit." > correct2.txt
-echo "" > empty.txt
+echo "Error" > error_msg.txt
 
 nb_test=60
 count=0
@@ -32,13 +28,13 @@ good_map(){
         do
             test=${!i}
             touch $outputs_file/$test
-            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test
-            var=$(srcs/compare/comp $outputs_file/$test correct2.txt)
-            if [ var = 0 ]
+            $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test 2> failed.txt
+            var=$(srcs/compare/comp $outputs_file/$test error_msg.txt)
+            if [ $var -ne $ok ]
                 then
-                var=$(srcs/compare/comp $outputs_file/$test empty.txt)
+                var=$(srcs/compare/comp $outputs_file/$test failed.txt)
             fi
-            if [ $var = $ok ]
+            if [ $var -ne $ok ]
                 then
                 count=$(($count+1))
                 rm  $outputs_file/$test
@@ -61,7 +57,7 @@ error_map(){
             test=${!i}
             touch $outputs_file/$test
             $pwd_cub3d/cub3D $tests_file/$test > $outputs_file/$test
-            var=$(srcs/compare/comp $outputs_file/$test correct.txt)
+            var=$(srcs/compare/comp $outputs_file/$test error_msg.txt)
             if [ $var = $ok ]
                 then
                 count=$(($count+1))
@@ -84,7 +80,7 @@ save_error(){
         save=${!i}
         touch $outputs_file/$save.txt
         $pwd_cub3d/cub3D $tests_file/basic.cub $save > $outputs_file/$save.txt
-        var=$(srcs/compare/comp $outputs_file/$save.txt correct.txt)
+        var=$(srcs/compare/comp $outputs_file/$save.txt error_msg.txt)
         if [ $var = $ok ]
             then
             count=$(($count+1))
@@ -170,13 +166,13 @@ mkdir $outputs_file
 
 str=""
 KO=0
-$pwd_cub3d/cub3D $tests_file/basic.cub > $outputs_file/basic.cub
-var=$(srcs/compare/comp $outputs_file/basic.cub correct2.txt)
-if [ var = 0 ]
+$pwd_cub3d/cub3D $tests_file/basic.cub > $outputs_file/basic.cub 2> failed.txt
+var=$(srcs/compare/comp $outputs_file/basic.cub error_msg.txt)
+if [ $var -ne $ok ]
     then
-    var=$(srcs/compare/comp $outputs_file/basic.cub empty.txt)
+    var=$(srcs/compare/comp $outputs_file/basic.cub failed.txt)
 fi
-if [ $var = $ok ]
+if [ $var -ne $ok ]
     then
     count=$(($count+1))
     rm  $outputs_file/basic.cub
@@ -280,6 +276,5 @@ else
     echo "\033[1;31mLOL try again !\033[0m\n"
 fi
 
-rm correct.txt
-rm correct2.txt
-rm empty.txt
+rm error_msg.txt
+rm failed.txt
