@@ -40,7 +40,7 @@ good_map(){
                 rm  $outputs_file/$test
             else
                 KO=$(($KO+1))
-                str+=" $test"
+                str+="\n- $test"
             fi
             i=$((i+1))
     done
@@ -64,7 +64,7 @@ error_map(){
                 rm  $outputs_file/$test
             else
                 KO=$(($KO+1))
-                str+=" $test"
+                str+="\n- $test"
             fi
             i=$((i+1))
     done
@@ -134,7 +134,7 @@ all_tests=$(ls tests/)
 
 if [ -z $arg ]
     then
-    make
+    make 1> /dev/null
     tests_file=tests
     outputs_file=KO_outputs
 elif [ $arg = "bonus" ]
@@ -178,7 +178,7 @@ if [ $var -ne $ok ]
     rm  $outputs_file/basic.cub
 else
     KO=$(($KO+1))
-    str+=" basic.cub"
+    str+="\nbasic.cub"
     check=𐄂
 fi
 
@@ -273,7 +273,7 @@ if [ $count -eq $nb_test ]
     echo "\033[1;32mGreat !\033[0;1m\n"
 else
     echo "[ \033[1;31m$count / $nb_test\033[0m ]"
-    echo "\033[1;31mLOL try again !\033[0m\n"
+    echo "\033[31mLOL try again !\033[3;31m\n-> Errors in KO_outputs\033[0m"
 fi
 
 rm error_msg.txt
