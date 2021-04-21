@@ -132,7 +132,6 @@ print_result(){
     if [ $1 -ne 0 ]
         then
         echo -e "[\033[1;31mKO\033[1;0m]\033[0m"
-        echo -e "\033[31mnames and outputs of the KO tests are in KO_outputs/\033[0m"
     else
         echo -e "[\033[1;32mOK\033[1;0m]\033[0m"
     fi
@@ -154,16 +153,25 @@ add_bonus(){
 ######## EXCUTION #########
 ###########################
 
+echo -e "\033[34;1m"
+cat title.txt
+
 all_tests=$(ls tests/)
 
 if [ -z $arg ]
     then
     make 1> /dev/null
+    ls ../cub3D > /dev/null 2> /dev/null
+    if [ $? = 1 ]
+    then
+        echo -e "\n\n\033[31;1mWrong program name !!!!!!!\n\033[1;0mBYE ...\n"
+        exit 1
+    fi
     tests_file=tests
     outputs_file=KO_outputs
 elif [ $arg = "bonus" ]
     then
-    make bonus
+    make bonus 1> /dev/null
     tests_file=tests_bonus
     outputs_file=KO_bonus_outputs
     rm -rf tests_bonus
@@ -191,13 +199,11 @@ mkdir $outputs_file
 ########## TESTS ##########
 ###########################
 
-echo -e "\033[34;1m"
-cat title.txt
 echo -e "\n\n\033[1;36mYou need to get the good map : basic\033[0;1m \033[1;32m✔\033[0;1m \
 \033[1;36mfor the rest of the tester !\033[0m"
 printf "\n"
 
-printf "\033[33;1mTester is lauching "
+printf "\033[33;1mLaunching "
 progress_anim & pro_pid=$!
 
 str=""
@@ -230,7 +236,8 @@ KO=0
 str=""
 error_map info_error0.cub info_error1.cub info_error10.cub info_error11.cub \
 info_error12.cub info_error13.cub info_error2.cub info_error3.cub info_error4.cub \
-info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub 2> /dev/null
+info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub
+info_error14.cub 2> /dev/null
 str1=$str
 KO1=$KO
 
@@ -281,9 +288,9 @@ wait $pro_pid 2> /dev/null
 
 if [ $check = ✔ ]
 then
-    echo -e "\r\033[0mbasic \033[1;32m$check                  \033[0m"
+    echo -e "\r\033[0mbasic \033[1;32m$check            \033[0m"
 else
-    echo -e "\r\033[0mbasic \033[1;31m$check                  \033[0m"
+    echo -e "\r\033[0mbasic \033[1;31m$check            \033[0m"
 fi
 
 echo -ne "\n\033[1mGood map     : "
@@ -312,6 +319,7 @@ if [ $count -eq $nb_test ]
 else
     echo -e "[ \033[1;31m$count / $nb_test\033[0m ]"
     echo -e "\033[1;31mLOL try again !\033[0m\n"
+    echo -e "\033[31mNames and outputs of the KO tests are in KO_outputs/\033[0m"
 fi
 
 rm error_msg.txt
