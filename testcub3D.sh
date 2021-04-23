@@ -226,7 +226,7 @@ basic(){
 basic 2> /dev/null
 
 good_map good_map0.cub good_map1..cub good_map2.cub good_map3.cub good_map4.cub \
-good_map5.cub good_map6.cub 2> /dev/null
+good_map5.cub good_map6.cub good_map7.cub 2> /dev/null
 str0=$str
 KO0=$KO
 
@@ -235,9 +235,8 @@ KO0=$KO
 KO=0
 str=""
 error_map info_error0.cub info_error1.cub info_error10.cub info_error11.cub \
-info_error12.cub info_error13.cub info_error2.cub info_error3.cub info_error4.cub \
-info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub \
-info_error14.cub 2> /dev/null
+info_error12.cub info_error13.cub info_error2.cub info_error4.cub info_error5.cub \
+info_error6.cub info_error7.cub info_error9.cub info_error14.cub 2> /dev/null
 str1=$str
 KO1=$KO
 
@@ -246,7 +245,7 @@ KO1=$KO
 KO=0
 str=""
 error_map color_error0.cub color_error1.cub color_error2.cub color_error3.cub \
-color_error4.cub color_error5.cub 2> /dev/null
+color_error4.cub color_error5.cub color_error6.cub 2> /dev/null
 str2=$str
 KO2=$KO
 
