@@ -226,7 +226,7 @@ basic(){
 basic 2> /dev/null
 
 good_map good_map0.cub good_map1..cub good_map2.cub good_map3.cub good_map4.cub \
-good_map5.cub good_map6.cub good_map7.cub 2> /dev/null
+good_map5.cub good_map6.cub 2> /dev/null
 str0=$str
 KO0=$KO
 
