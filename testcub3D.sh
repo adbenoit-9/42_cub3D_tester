@@ -9,7 +9,7 @@ pwd_cub3d=..
 #first line message in error case
 echo "Error" > error_msg.txt
 
-nb_test=60
+nb_test=61
 count=0
 ok=1
 check=✔
@@ -47,7 +47,7 @@ good_map(){
             sleep 0.1
             kill $cub_pid 2> /dev/null
             if [ $? = 0 ]
-                then
+            then
                 count=$(($count+1))
                 rm  $outputs_file/$test
             else
