@@ -188,7 +188,7 @@ if [ -f $pwd_cub3d/cub3D ]
     then
     echo -n ""
 else
-    echo -e "\nCompilation of \033[33;1mcub3d\033[0;1m: [\033[1;31mKO\033[0;1m]"
+    echo -e "\nCompilation of \033[33;1mcub3D\033[0;1m: [\033[1;31mKO\033[0;1m]"
     exit
 fi
 
@@ -236,7 +236,7 @@ KO=0
 str=""
 error_map info_error0.cub info_error1.cub info_error10.cub info_error11.cub \
 info_error12.cub info_error13.cub info_error2.cub info_error3.cub info_error4.cub \
-info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub
+info_error5.cub info_error6.cub info_error7.cub info_error8.cub info_error9.cub \
 info_error14.cub 2> /dev/null
 str1=$str
 KO1=$KO
